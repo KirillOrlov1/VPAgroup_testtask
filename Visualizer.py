@@ -6,13 +6,21 @@ from Utils import Dot, LinearMotionFilter
 
 class Visualizer:
 
-    def __init__(self, frame_size: int = 1000) -> None:
+    def __init__(self, frame_size: int = 1000, n: int = 6) -> None:
+        """
+        Инициализация класса визуализации задача трекинга случайного движения точки.
+        :param frame_size: размер квадратного фрейма, по которому будет двигаться точка
+        :param n: количество прошлых положений точки для расчета
+        """
         self.frame_size = frame_size
         self.dot = Dot(frame_size=frame_size,
                        coor=np.array([frame_size // 2, frame_size // 2]))
-        self.model = LinearMotionFilter()
+        self.model = LinearMotionFilter(n)
 
     def video(self) -> None:
+        """
+        Основная функция, производящая все операции, формирование кадров и расчет точности.
+        """
         last_predicted = None
         total = 0
         true = 0
@@ -37,5 +45,6 @@ class Visualizer:
 
 
 if __name__ == '__main__':
+    # для прекращения программы нажмите "q"
     vis = Visualizer(frame_size=800)
     vis.video()
