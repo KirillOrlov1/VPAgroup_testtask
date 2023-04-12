@@ -61,7 +61,7 @@ class LinearMotionFilter:
         :return: новая координата точки
         """
         if len(self.history) < self.n:
-            return self.history[-1]
+            return None
 
         speeds = list()
         for ind in range(1, len(self.history)):
